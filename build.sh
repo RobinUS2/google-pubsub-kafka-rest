@@ -1,7 +1,7 @@
 #!/bin/bash
 export GOPATH=`pwd`
-mkdir bin
+mkdir -p bin
 export GOBIN=`pwd`/bin
-go get ./...
+go get -t ./...
 go build .
 
