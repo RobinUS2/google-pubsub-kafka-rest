@@ -6,7 +6,7 @@ import (
 
 func main() {
 	key, _ := ioutil.ReadFile("/tmp/key.json")
-	pubsub := newPubSubHelper("test-project", key)
+	pubsub := newPubSubHelper("robin-1225", key)
 	server := newServer(pubsub)
 	server.Start()
 }

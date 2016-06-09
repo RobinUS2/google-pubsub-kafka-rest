@@ -24,6 +24,7 @@ _testmain.go
 *.prof
 
 # Build binary
+google-pubsub-kafka-rest
 bin/**
 
 # Sources

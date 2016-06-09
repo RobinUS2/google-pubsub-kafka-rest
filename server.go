@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/valyala/fasthttp"
+	"log"
 )
 
 type Server struct {
@@ -15,7 +16,7 @@ func (s *Server) init() {
 	s.requestHandler = func(ctx *fasthttp.RequestCtx) {
 		switch string(ctx.Path()) {
 		case "/foo":
-			fooHandler(ctx)
+			fooHandler(s, ctx)
 		default:
 			ctx.Error("Unsupported path", fasthttp.StatusNotFound)
 		}
@@ -28,7 +29,9 @@ func (s *Server) Start() {
 }
 
 // Foo
-func fooHandler(ctx *fasthttp.RequestCtx) {
+func fooHandler(s *Server, ctx *fasthttp.RequestCtx) {
+	res, err := s.pubsub.Publish("testpubsubkafkarest", []byte("Hello"))
+	log.Printf("Res %v err %v", res, err)
 	fmt.Fprintf(ctx, "Hi there! RequestURI is %q", ctx.RequestURI())
 }
 
