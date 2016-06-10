@@ -12,7 +12,7 @@ Place a configuration file in `/etc/pubsub_kafa_rest.json`
 ```
 {
 	"JwtJsonKeyPath": "/tmp/key.json",
-	"ProjectId": "single-arcana-89413"
+	"ProjectId": "your-project-123"
 }
 ```
 
