@@ -6,4 +6,5 @@ docker run --name pubsubrest \
 	--restart=always \
 	--ulimit nofile=262144:262144 \
 	--memory="1G" \
+	-p 8083:8083 \
 	pubsubrest
