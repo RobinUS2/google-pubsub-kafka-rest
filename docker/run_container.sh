@@ -6,5 +6,5 @@ docker run --name pubsubrest \
 	--restart=always \
 	--ulimit nofile=262144:262144 \
 	--memory="1G" \
-	--net=host \ # Probably want to disable this in production
+	--net=host \ 
 	pubsubrest
