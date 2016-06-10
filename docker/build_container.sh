@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build .
+docker build -no-cache .
