@@ -20,7 +20,7 @@ Place the Google IAM obtained service account JSON key in `/tmp/key.json` (or th
 
 Examples
 ------------
-To send the string value "Hello" into the topic "test" with cURL on localhost with default configs:
+To send the string value "Hello" into the topic "test1" with cURL on localhost with default configs:
 ```
 curl -XPOST --data '{"records":[{"value":"SGVsbG8="}]}' http://localhost:8082/topics/test1
 ```
