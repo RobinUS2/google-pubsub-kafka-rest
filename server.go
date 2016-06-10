@@ -57,7 +57,7 @@ func (s *Server) init() {
 		}
 
 		// Static OK json response as we don't need / have this information
-		fmt.Fprintf(c, "{\"offsets\":[{\"partition\":0,\"offset\":0,\"error_code\":null,\"error\":null}],\"key_schema_id\":null,\"value_schema_id\":null}", topic)
+		fmt.Fprintf(c, "{\"offsets\":[{\"partition\":0,\"offset\":0,\"error_code\":null,\"error\":null}],\"key_schema_id\":null,\"value_schema_id\":null}")
 		return nil
 	})
 }
