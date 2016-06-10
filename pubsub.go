@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 
 	"golang.org/x/net/context"
@@ -30,10 +31,14 @@ func (ps *PubSubHelper) init() {
 }
 
 // Write
-func (ps *PubSubHelper) Publish(topic string, data []byte) (bool, error) {
-	_, err := pubsub.Publish(ps.ctx, topic, &pubsub.Message{
-		Data: data,
-	})
+func (ps *PubSubHelper) Publish(topic string, data ...[]byte) (bool, error) {
+	msgs := make([]*pubsub.Message, len(data))
+	for i, dataElm := range data {
+		msgs[i] = &pubsub.Message{
+			Data: dataElm,
+		}
+	}
+	_, err := pubsub.Publish(ps.ctx, topic, msgs...)
 	if err == nil {
 		return true, nil
 	}
@@ -41,11 +46,20 @@ func (ps *PubSubHelper) Publish(topic string, data []byte) (bool, error) {
 }
 
 // Constructor
-func newPubSubHelper(projectId string, jwtJsonConfig []byte) *PubSubHelper {
-	ps := &PubSubHelper{
-		projectId:     projectId,
-		jwtJsonConfig: jwtJsonConfig,
+func newPubSubHelper(conf *Conf) *PubSubHelper {
+	// Read key
+	key, keyErr := ioutil.ReadFile(conf.JwtJsonKeyPath)
+	if keyErr != nil {
+		log.Fatalf("Failed to read JSON key: %s", keyErr)
 	}
+
+	// Construct helper
+	ps := &PubSubHelper{
+		projectId:     conf.ProjectId,
+		jwtJsonConfig: key,
+	}
+
+	// Init
 	ps.init()
 	return ps
 }
