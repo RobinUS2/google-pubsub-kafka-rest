@@ -1,12 +1,24 @@
 package main
 
 import (
-	"io/ioutil"
+	"flag"
 )
 
+var configPath string
+
+func init() {
+	flag.StringVar(&configPath, "conf", "/etc/pubsub_kafa_rest.json", "Path to configuration JSON (not the key)")
+	flag.Parse()
+}
+
 func main() {
-	key, _ := ioutil.ReadFile("/tmp/key.json")
-	pubsub := newPubSubHelper("robin-1225", key)
-	server := newServer(pubsub)
+	// Config
+	conf := newConf(configPath)
+
+	// Pubsub
+	pubsub := newPubSubHelper(conf)
+
+	// server
+	server := newServer(conf, pubsub)
 	server.Start()
 }
